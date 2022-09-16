@@ -36,15 +36,4 @@ jobs:
         perl -pi.bak -e 's/"p-retry":/"zlib":".\/deno-shims\/zlib-shim.js","util":".\/deno-shims\/util-shim.js","p-retry":/g' package.json
     - run: npm install
     - run: npm run build:deno
-    - run: mv mod.js ../../.
-    - name: Commit and tag built artifact to separate branch
-      run: |
-        git config user.name slack-cicd
-        git config user.email github-cicd@slack.com
-        git checkout -- package.json
-        git checkout deno-web-api
-        mv ../../mod.js .
-        git add mod.js
-        git commit -m "Adding transpiled deno ${GITHUB_REF_NAME} release artifact."
-        git tag "deno/${GITHUB_REF_NAME}"
-        git push --tags
+  
